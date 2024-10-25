@@ -28,6 +28,8 @@ struct SettingsView: View {
     @State private var selectedVehicle: Vehicle?
     @State private var isShowingEditVehicleView = false
     
+    @State private var isShowingVehicleDetailView = false
+    
     private let appVersion = "Version \(Bundle.main.versionNumber) (\(Bundle.main.buildNumber))"
     
     init(authenticationViewModel: AuthenticationViewModel) {
@@ -122,6 +124,12 @@ struct SettingsView: View {
                             }
                             .font(.callout)
                             .foregroundStyle(.secondary)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            selectedVehicle = vehicle
+                            isShowingVehicleDetailView = true
                         }
                         .swipeActions {
                             Button(role: .destructive) {
@@ -231,6 +239,9 @@ struct SettingsView: View {
                         Text("Failed To Add Vehicle. Unknown Error.")
                     }
                 }
+            }
+            .navigationDestination(isPresented: $isShowingVehicleDetailView) {
+                VehicleDetailView(selectedVehicle: $selectedVehicle, viewModel: viewModel)
             }
             .sheet(isPresented: $isShowingEditVehicleView) {
                 EditVehicleView(selectedVehicle: $selectedVehicle, viewModel: viewModel)
