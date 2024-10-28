@@ -92,45 +92,45 @@ struct SettingsView: View {
                 
                 Section {
                     ForEach(viewModel.vehicles) { vehicle in
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text("\(vehicle.name)")
-                                .fontWeight(.bold)
-                                .font(.headline)
-                            
-                            Group {
-                                HStack {
-                                    if let year = vehicle.year, !year.isEmpty {
-                                        Text(year)
-                                    }
-                                    
-                                    Text(vehicle.make)
-                                    
-                                    Text(vehicle.model)
-                                }
-                                
-                                if let licensePlateNumber =
-                                    vehicle.licensePlateNumber,
-                                   !licensePlateNumber.isEmpty {
-                                    Text("Plate: \(licensePlateNumber)")
-                                }
-                                
-                                if let vin = vehicle.vin, !vin.isEmpty {
-                                    Text("VIN: \(vin)")
-                                }
-                                
-                                if let color = vehicle.color, !color.isEmpty {
-                                    Text("Color: \(color)")
-                                } 
-                            }
-                            .font(.callout)
-                            .foregroundStyle(.secondary)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .contentShape(Rectangle())
-                        .onTapGesture {
+                        Button {
                             selectedVehicle = vehicle
                             isShowingVehicleDetailView = true
+                        } label: {
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("\(vehicle.name)")
+                                    .fontWeight(.bold)
+                                    .font(.headline)
+                                
+                                Group {
+                                    HStack {
+                                        if let year = vehicle.year, !year.isEmpty {
+                                            Text(year)
+                                        }
+                                        
+                                        Text(vehicle.make)
+                                        
+                                        Text(vehicle.model)
+                                    }
+                                    
+                                    if let licensePlateNumber =
+                                        vehicle.licensePlateNumber,
+                                       !licensePlateNumber.isEmpty {
+                                        Text("Plate: \(licensePlateNumber)")
+                                    }
+                                    
+                                    if let vin = vehicle.vin, !vin.isEmpty {
+                                        Text("VIN: \(vin)")
+                                    }
+                                    
+                                    if let color = vehicle.color, !color.isEmpty {
+                                        Text("Color: \(color)")
+                                    } 
+                                }
+                                .font(.callout)
+                                .foregroundStyle(.secondary)
+                            }
                         }
+                        .buttonStyle(.plain)
                         .swipeActions {
                             Button(role: .destructive) {
                                 Task {
