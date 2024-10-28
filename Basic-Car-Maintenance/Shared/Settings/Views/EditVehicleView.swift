@@ -11,6 +11,8 @@ import SwiftUI
 struct EditVehicleView: View, Observable {
     @Binding var selectedVehicle: Vehicle?
     var viewModel: SettingsViewModel
+    
+    /// closure to update the values passed in, and set them to all the state properties
     var onVehicleUpdated: ((Vehicle) -> Void)?
     
     @Environment(\.dismiss) var dismiss
